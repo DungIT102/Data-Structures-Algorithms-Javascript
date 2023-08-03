@@ -30,7 +30,7 @@ class LinkedList {
 
   push(value) {
     const newNode = new Node(value);
-    if (!this.head) {
+    if (this.length === 0) {
       this.head = newNode;
       this.tail = newNode;
       this.length++;
@@ -44,9 +44,16 @@ class LinkedList {
   }
 
   pop() {
-    if (!this.head) return undefined;
+    if (this.length === 0) return undefined;
 
     let temp = this.head;
+    if (this.length === 1) {
+      this.head = null;
+      this.tail = null;
+      this.length--;
+      return temp;
+    }
+
     let prev = this.head;
     while (temp.next) {
       prev = temp;
@@ -55,17 +62,12 @@ class LinkedList {
     this.tail = prev;
     this.tail.next = null;
     this.length--;
-    if (this.length === 0) {
-      this.head = null;
-      this.tail = null;
-    }
-
     return temp;
   }
 
   unshift(value) {
     const newNode = new Node(value);
-    if (!this.head) {
+    if (this.length === 0) {
       this.head = newNode;
       this.tail = newNode;
       this.length++;
@@ -79,14 +81,19 @@ class LinkedList {
   }
 
   shift() {
-    if (!this.head) return undefined;
+    if (this.length === 0) return undefined;
 
     let temp = this.head;
+    if (this.length === 1) {
+      this.head = null;
+      this.tail = null;
+      this.length--;
+      return temp;
+    }
+
     this.head = this.head.next;
     temp.next = null;
     this.length--;
-    if (this.length === 0) this.tail = null;
-
     return temp;
   }
 
@@ -160,7 +167,11 @@ myLinkedList.push(4);
 myLinkedList.push(8);
 myLinkedList.push(12);
 
-console.log(myLinkedList.insert(0, 1));
-myLinkedList.printList();
-myLinkedList.reverse();
-myLinkedList.printList();
+console.log(myLinkedList.shift());
+console.log(myLinkedList);
+
+console.log(myLinkedList.shift());
+console.log(myLinkedList);
+
+console.log(myLinkedList.shift());
+console.log(myLinkedList);
