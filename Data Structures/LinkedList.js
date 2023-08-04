@@ -30,15 +30,15 @@ class LinkedList {
 
   push(value) {
     const newNode = new Node(value);
+
     if (this.length === 0) {
       this.head = newNode;
       this.tail = newNode;
-      this.length++;
-      return this;
+    } else {
+      this.tail.next = newNode;
+      this.tail = newNode;
     }
 
-    this.tail.next = newNode;
-    this.tail = newNode;
     this.length++;
     return this;
   }
@@ -50,32 +50,31 @@ class LinkedList {
     if (this.length === 1) {
       this.head = null;
       this.tail = null;
-      this.length--;
-      return temp;
+    } else {
+      let prev = this.head;
+      while (temp.next) {
+        prev = temp;
+        temp = temp.next;
+      }
+      this.tail = prev;
+      this.tail.next = null;
     }
 
-    let prev = this.head;
-    while (temp.next) {
-      prev = temp;
-      temp = temp.next;
-    }
-    this.tail = prev;
-    this.tail.next = null;
     this.length--;
     return temp;
   }
 
   unshift(value) {
     const newNode = new Node(value);
+
     if (this.length === 0) {
       this.head = newNode;
       this.tail = newNode;
-      this.length++;
-      return this;
+    } else {
+      newNode.next = this.head;
+      this.head = newNode;
     }
 
-    newNode.next = this.head;
-    this.head = newNode;
     this.length++;
     return this;
   }
@@ -87,12 +86,11 @@ class LinkedList {
     if (this.length === 1) {
       this.head = null;
       this.tail = null;
-      this.length--;
-      return temp;
+    } else {
+      this.head = this.head.next;
+      temp.next = null;
     }
 
-    this.head = this.head.next;
-    temp.next = null;
     this.length--;
     return temp;
   }
